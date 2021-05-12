@@ -10,14 +10,14 @@
 > Nginx uses an asynchronous, event-driven approach where requests are handled in a single thread. nginx is an HTTP and reverse proxy server to serve static content 
 
 
-This is a sample django app & I'm going to explane. How am i dockeriz this app.
+This is a simple django app & I'm going to explain. How am i dockerized this app.
 
-So frist of all look through the file statcture. This is importance because if statcture dose not match docker will give you an error.
+So, Frist of all look through the file statcture. This is importance because if statcture dose not match, Docker will give you an error.
 
-![Optional Text](https://github.com/mohammadfayaj/Django-Dockerizing/blob/247dcd5d5937aa29dd917ceceb538ebcc9b64c19/tree.png)
+![Optional Text](https://github.com/mohammadfayaj/Django-Dockerizing/blob/a7947f320b31ac1706a3a757bca5b509924634ef/tree.png)
 
 
-### 1. Create a file called <code>Dockerfile</code> Without any extention
+#### 1. Create a file called <code>Dockerfile</code> Without any extention
 ```
 #Alpine is a Linux distribution built around musl,libc and BusyBox.
 FROM python:3.8.8-alpine
@@ -30,7 +30,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /project/
 
 RUN pip install --upgrade pip 
-# copy reuiremnts.txt from project root and than send it to the image working directory
+# copy requirements.txt from root directory and then send it to the image working directory
 COPY ./requirements.txt /project/requirements.txt
 RUN pip install -r requirements.txt
 
@@ -46,13 +46,13 @@ ENTRYPOINT ["sh", "/project/scripts/entrypoint.sh"]
 
 ```
 
-### 2. Create a file called <code>docker-compose.yml</code>
+#### 2. Create a new file <code>docker-compose.yml</code>
 
 ```
 version: '3.9'
 
 services:
-# this is a gunicorn server you can name what ever you Want, I call it 'django_gunicorn'
+# this is a gunicorn server, you can name what ever you want, I call it 'django_gunicorn'
   django_gunicorn:
     build:
       context: .
@@ -63,7 +63,7 @@ services:
     ports:
       - "8000:8000"
 
-# This is nginx server again you can rename it
+# This is nginx server, and again you can rename it
   django_nginx:
     build: ./nginx
     volumes:
@@ -75,6 +75,7 @@ services:
       - django_gunicorn
 
 """ I'm not using any database system but if you want it probable this way """
+
   # mysql:
   #   build: ./mysql
   #   container_name: mysql
@@ -94,13 +95,13 @@ volumes:
 ```
 > >Docker volumes persist data in Docker containers. When a Docker container is destroyed, it's entire file system is destroyed too. So if we want to keep this data, it is necessary that we use Docker volumes
 
-### 3. Create Scripts Directory inside the root directory
-> inside scripts dir create a file called <code>entrypoint.sh</code>
+#### 3. Create Scripts Directory inside the root directory
+> inside scripts directory create a file called <code>entrypoint.sh</code>
 
 ```
 #!/bin/sh
 
-# this is for error handling if somethings bad it will stop execting next.
+# This is for error handling if something's bad it will stop executing next.
 set -e 
 
 cd ./project/
@@ -172,7 +173,7 @@ server {
 }
 
 ```
-> If you don't define this pice of code django will give an error like <code>Disallowedhost at / Invaild HTTP_HOST header </code>
+> If you don't define this piece of code django will give an error like <code>Disallowedhost at / Invaild HTTP_HOST header </code>
 ```
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
@@ -186,7 +187,7 @@ Now time to build our application, inside the root directory type
 now you are good to go.
 
 Open up a browser and type <code>127.0.0.1</code>
-and check the logs. to see if static file server or not go to
+and check the logs. To see if static file server or not, Go to
 <code>127.0.0.1/admin</code>
 
-##### If any things a miss feel free to commit or create an issue
+##### If any things i miss, Feel free to commit or create an issue
