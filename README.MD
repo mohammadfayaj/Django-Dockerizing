@@ -187,7 +187,7 @@ Now time to build our application, inside the root directory type
 now you are good to go.
 
 Open up a browser and type <code>127.0.0.1</code>
-and check the logs. To see if static file server or not, Go to
+and check the logs. To see if static file serv or not, Go to
 <code>127.0.0.1/admin</code>
 
 ##### If any things i miss, Feel free to commit or create an issue
