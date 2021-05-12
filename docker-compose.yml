@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  django_gunicorn:
+    build:
+      context: .
+    volumes:
+      - static:/static/
+    env_file:
+      - ./project/.env
+    ports:
+      - "8000:8000"
+
+  django_nginx:
+    build: ./nginx
+    volumes:
+      - static:/static/
+    ports:
+      - "80:8080"
+    depends_on:
+      - django_gunicorn
+
+  # mysql:
+  #   build: ./mysql
+  #   container_name: mysql
+  #   ports:
+  #     - 3306:3306
+  #   volumes:
+  #     - data-volume:/mysql/
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=password
+  #     - MYSQL_DATABASE=django
+  #   healthcheck:
+  #     test: "exit 0"
+
+volumes:
+  static:
+
