@@ -14,7 +14,7 @@ This is a sample django app & I'm going to explane. How am i dockeriz this app.
 
 So frist of all look through the file statcture. This is importance because if statcture dose not match docker will give you an error.
 
-![Optional Text](https://github.com/mohammadfayaj/Django-Dockerizing/blob/dd602014a4664ec9f11fceedc3c87bda04f87afe/tree.png)
+![Optional Text](https://github.com/mohammadfayaj/Django-Dockerizing/blob/247dcd5d5937aa29dd917ceceb538ebcc9b64c19/tree.png)
 
 
 ### 1. Create a file called <code>Dockerfile</code> Without any extention
